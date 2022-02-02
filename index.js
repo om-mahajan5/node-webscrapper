@@ -10,15 +10,18 @@ const QUESTION_MATCH_REGEX = /\/questions\/\d+/g
 var requestStack = ["?sort=MostVotes"]
 var DATA = {}
 
+var threads = []
+
 function startScraping() {
-    // scrapeNext()
     request(QUESTION_BASE_URL + requestStack[0],
         (error, response, html) => {
             if (!error && response.statusCode == 200) {
                 const $ = cheerio.load(html);
-                fetchNewLinks($);
+                fetchNewQuestionLinks($);
                 requestStack.shift()
-                scrapeNext()
+                for (let index = 0; index <= 5; index++) {
+                    threads.push(scrapeNext())                    
+                }
             }
             else {
                 console.error("ERROR REQUESTING THE PAGE. HTTP STATUS CODE : " + response.statusCode);
@@ -28,11 +31,15 @@ function startScraping() {
 }
 
 function scrapeNext() {
-    console.log("SCRAPING : " + requestStack[0], "REQUEST STACK : " + requestStack.length);
-    request(QUESTION_BASE_URL + requestStack[0],
+    let currentQuestionId = requestStack.shift();
+    console.log("SCRAPING : " + currentQuestionId, "REQUEST STACK : " + requestStack.length);
+    request(QUESTION_BASE_URL + currentQuestionId,
         (error, response, html) => {
             if (!error && response.statusCode == 200) {
-                parsePage(html, requestStack[0]);
+                parsePage(html, currentQuestionId);
+                
+                threads.shift()
+                threads.push(scrapeNext())
             }
             else {
                 console.error("ERROR REQUESTING THE PAGE. HTTP STATUS CODE : " + response.statusCode);
@@ -50,23 +57,23 @@ function parsePage(html, questionId) {
     let questionText = $('#question-header h1 a').text()
     console.log("#Qv:" + questionUpvoteCount, "#A: " + answersCount);
     if (DATA[questionId]) {
-        DATA[questionId][R]++;
+        DATA[questionId][R] = DATA[questionId][R] + 1;
+        console.log("FOUND A REFERENCE FOR ", DATA[questionId]);
     } else {
         DATA[questionId] = {
             questionId: questionId,
             questionText: questionText,
             questionUpvoteCount: questionUpvoteCount,
             answersCount: answersCount,
+            questionURL: QUESTION_BASE_URL + questionId,
             referenceCount: 1
         }
     }
-    console.log(DATA[questionId]);
-    fetchNewLinks($)
-    requestStack.shift()
-    scrapeNext()
+    fetchNewQuestionLinks($)
+    
 }
 
-function fetchNewLinks($) {
+function fetchNewQuestionLinks($) {
     console.log("TOTAL LINKS ON THE PAGE ARE : ", $('a').length);
     $('a').each(function () {
         let href = $(this).attr('href')

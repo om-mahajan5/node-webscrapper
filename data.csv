@@ -1,6 +1,36 @@
-questionId,questionText,questionUpvoteCount,answersCount,referenceCount
-2219,How should I deal with becoming discouraged as a graduate student?,605,12,1
-37370,Should I share my horrible software?,307,18,1
-51631,How to ask dumb questions,379,14,1
-67897,"I don't want to kill any more mice, but my advisor insists that I must in order to get my PhD",334,12,1
-102698,Upset by male classmates openly comparing female students according to physical appearance,348,17,1
+questionId,questionText,questionUpvoteCount,answersCount,questionURL,referenceCount
+90,Have I embarassed my supervisors by solving a problem that a PhD student in my group was working on without success?,214,11,https://academia.stackexchange.com/questions/90,1
+2219,How should I deal with becoming discouraged as a graduate student?,605,12,https://academia.stackexchange.com/questions/2219,1
+5786,Upset by male classmates openly comparing female students according to physical appearance,348,17,https://academia.stackexchange.com/questions/5786,1
+8194,"How to effectively deal with Imposter Syndrome and feelings of inadequacy: ""I've somehow convinced everyone that I'm actually good at this""",267,9,https://academia.stackexchange.com/questions/8194,1
+10381,"What to do with a student coming to class in revealing clothing, to the degree that it disrupts the teaching environment?",189,18,https://academia.stackexchange.com/questions/10381,1
+11765,How should I deal with becoming discouraged as a graduate student?,605,12,https://academia.stackexchange.com/questions/11765,1
+14010,Writing a recommendation letter for a student I reported for academic dishonesty,209,14,https://academia.stackexchange.com/questions/14010,1
+16367,Should I share my horrible software?,307,18,https://academia.stackexchange.com/questions/16367,1
+18491,Failing students when it might cause them economic ruin,223,21,https://academia.stackexchange.com/questions/18491,1
+28631,Postdoc overwhelmed by incomplete work,193,11,https://academia.stackexchange.com/questions/28631,1
+37370,How should I deal with becoming discouraged as a graduate student?,605,12,https://academia.stackexchange.com/questions/37370,1
+51631,How should I deal with becoming discouraged as a graduate student?,605,12,https://academia.stackexchange.com/questions/51631,1
+56220,Professor creates assignment making students advocate for a bill being presented to Congress. Is this legal?,214,9,https://academia.stackexchange.com/questions/56220,1
+57120,University rank/stature - How much does it affect one's career post-Ph.D?,209,4,https://academia.stackexchange.com/questions/57120,1
+63915,How do you cite a Github repository?,193,8,https://academia.stackexchange.com/questions/63915,1
+65485,"I don't want to kill any more mice, but my advisor insists that I must in order to get my PhD",334,12,https://academia.stackexchange.com/questions/65485,1
+66820,Why do American colleges and universities have sports teams?,238,14,https://academia.stackexchange.com/questions/66820,1
+67897,How should I deal with becoming discouraged as a graduate student?,605,12,https://academia.stackexchange.com/questions/67897,1
+68605,How to avoid procrastination during the research phase of my PhD?,265,20,https://academia.stackexchange.com/questions/68605,1
+72672,How to read papers without falling into a rabbit hole?,239,8,https://academia.stackexchange.com/questions/72672,1
+80595,How to ask dumb questions,379,14,https://academia.stackexchange.com/questions/80595,1
+81581,Female students coming to office hours in overly revealing clothing,219,13,https://academia.stackexchange.com/questions/81581,1
+81975,A paper I received to review has (independently) duplicated work that we are writing up. How to proceed in light of peer-review confidentiality?,258,8,https://academia.stackexchange.com/questions/81975,1
+83082,Why would an academic write a textbook for free?,194,9,https://academia.stackexchange.com/questions/83082,1
+89032,What to do when your student is convinced that he will be the next Einstein?,209,22,https://academia.stackexchange.com/questions/89032,1
+91861,I believe I have solved a famous open problem. How do I convince people in the field that I am not a crank?,213,15,https://academia.stackexchange.com/questions/91861,1
+98176,Sex worker student offering her (lawful) services,236,4,https://academia.stackexchange.com/questions/98176,1
+99752,"Can I add a baby as a co-author of a scientific paper, to protest against co-authors who haven't made any contribution?",193,13,https://academia.stackexchange.com/questions/99752,1
+102698,How should I deal with becoming discouraged as a graduate student?,605,12,https://academia.stackexchange.com/questions/102698,1
+102950,A published paper stole my unpublished results from a science fair,231,6,https://academia.stackexchange.com/questions/102950,1
+102956,How can I recover professionally from being a crank?,204,9,https://academia.stackexchange.com/questions/102956,1
+114546,How to stop hopping the learning chain and actually begin somewhere?,190,15,https://academia.stackexchange.com/questions/114546,1
+130607,Moral dilemma in unwittingly being paid to complete a student's work,264,19,https://academia.stackexchange.com/questions/130607,1
+135907,May a man attend a workshop entitled “Young women in [domain]”?,187,15,https://academia.stackexchange.com/questions/135907,1
+154192,How to avoid being falsely accused of harassment by a student?,214,13,https://academia.stackexchange.com/questions/154192,1
