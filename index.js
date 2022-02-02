@@ -1,13 +1,18 @@
+// Importing necessary libraries
 var request = require('request')
 var cheerio = require('cheerio')
 const ObjectsToCsv = require('objects-to-csv');
 
-// const QUESTION_BASE_URL = "https://stackoverflow.com/questions/"
-const QUESTION_BASE_URL = "https://academia.stackexchange.com/questions/"
+const QUESTION_BASE_URL = "https://stackoverflow.com/questions/"
+
+// Uncomment the following lines to scrape the respective website
+// const QUESTION_BASE_URL = "https://academia.stackexchange.com/questions/"
+// const QUESTION_BASE_URL = "https://superuser.com/questions/"
 const ROOT_URL = "?tab=Votes"
 const QUESTION_MATCH_REGEX = /\/questions\/\d+/g
+const CSV_FILENAME = "data.csv"
 
-var requestStack = ["?sort=MostVotes"]
+var requestStack = [ROOT_URL]
 var DATA = {}
 
 var threads = []
@@ -32,7 +37,7 @@ function startScraping() {
 
 function scrapeNext() {
     let currentQuestionId = requestStack.shift();
-    console.log("SCRAPING : " + currentQuestionId, "REQUEST STACK : " + requestStack.length);
+    console.log("SCRAPING : " + QUESTION_BASE_URL + currentQuestionId);
     request(QUESTION_BASE_URL + currentQuestionId,
         (error, response, html) => {
             if (!error && response.statusCode == 200) {
@@ -55,7 +60,6 @@ function parsePage(html, questionId) {
     let questionUpvoteCount = $('#question .js-vote-count').attr('data-value');
     let answersCount = $('#answers #answers-header h2').attr('data-answercount');
     let questionText = $('#question-header h1 a').text()
-    console.log("#Qv:" + questionUpvoteCount, "#A: " + answersCount);
     if (DATA[questionId]) {
         DATA[questionId][R] = DATA[questionId][R] + 1;
         console.log("FOUND A REFERENCE FOR ", DATA[questionId]);
@@ -74,7 +78,6 @@ function parsePage(html, questionId) {
 }
 
 function fetchNewQuestionLinks($) {
-    console.log("TOTAL LINKS ON THE PAGE ARE : ", $('a').length);
     $('a').each(function () {
         let href = $(this).attr('href')
         if (href) {
@@ -93,9 +96,9 @@ function fetchNewQuestionLinks($) {
 process.on('SIGINT', function () {
     console.log("SAVING THE FILE...");
     const csv = new ObjectsToCsv(Object.values(DATA));
-    csv.toDisk('./data.csv').then(
+    csv.toDisk('./'+CSV_FILENAME).then(
         () => {
-            console.log("FILE SAVED AS 'data.csv'")
+            console.log("FILE SAVED AS "+CSV_FILENAME)
             process.exit()
         }
     );
