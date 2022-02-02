@@ -11,7 +11,20 @@ var requestStack = ["?sort=MostVotes"]
 var DATA = {}
 
 function startScraping() {
-    scrapeNext()
+    // scrapeNext()
+    request(QUESTION_BASE_URL + requestStack[0],
+        (error, response, html) => {
+            if (!error && response.statusCode == 200) {
+                const $ = cheerio.load(html);
+                fetchNewLinks($);
+                requestStack.shift()
+                scrapeNext()
+            }
+            else {
+                console.error("ERROR REQUESTING THE PAGE. HTTP STATUS CODE : " + response.statusCode);
+            }
+        }
+    )
 }
 
 function scrapeNext() {
@@ -22,7 +35,7 @@ function scrapeNext() {
                 parsePage(html, requestStack[0]);
             }
             else {
-                console.error("ERROR REQUESTING THE PAGE. CODE : " + response.statusCode);
+                console.error("ERROR REQUESTING THE PAGE. HTTP STATUS CODE : " + response.statusCode);
             }
         }
     )
@@ -34,14 +47,14 @@ function parsePage(html, questionId) {
     const $ = cheerio.load(html)
     let questionUpvoteCount = $('#question .js-vote-count').attr('data-value');
     let answersCount = $('#answers #answers-header h2').attr('data-answercount');
-    let questionText = $('.question-header h1 a').text()
+    let questionText = $('#question-header h1 a').text()
     console.log("#Qv:" + questionUpvoteCount, "#A: " + answersCount);
     if (DATA[questionId]) {
         DATA[questionId][R]++;
     } else {
         DATA[questionId] = {
             questionId: questionId,
-            questionText:questionText,
+            questionText: questionText,
             questionUpvoteCount: questionUpvoteCount,
             answersCount: answersCount,
             referenceCount: 1
@@ -71,10 +84,13 @@ function fetchNewLinks($) {
 
 
 process.on('SIGINT', function () {
-    console.log("Caught interrupt signal");
+    console.log("SAVING THE FILE...");
     const csv = new ObjectsToCsv(Object.values(DATA));
-    csv.toDisk('./test.csv').then(
-        ()=>process.exit()
+    csv.toDisk('./data.csv').then(
+        () => {
+            console.log("FILE SAVED AS 'data.csv'")
+            process.exit()
+        }
     );
 
 });
