@@ -65,7 +65,6 @@ function scrapeNext() {
             } else if(!SCRAPE_TARGET){
                 threads.push(scrapeNext());
             }else if(Object.values(DATA).length==SCRAPE_TARGET){
-                threads = null;
                 progressBar.stop();
                 saveToCSV();
             }
@@ -112,9 +111,10 @@ function fetchNewQuestionLinks($) {
 
 function saveToCSV() {
     console.log(`SCRAPING RESULTS:`);
-    console.log(`PAGES SCRAPED: ${Object.values(DATA).length}`);
-    console.log(`QUESTION LINKS FOUND: ${requestStack.length}`);
-    console.log("\nSAVING THE FILE...");
+    console.log(`Pages Scraped: ${Object.values(DATA).length}`);
+    console.log(`Question links found: ${requestStack.length}`);
+    console.log(`Invalid question links found ${errorCount}`);
+    console.log(`saving data to ${CSV_FILENAME}...`);
     const csv = new ObjectsToCsv(Object.values(DATA));
     csv.toDisk('./' + CSV_FILENAME).then(
         () => {
