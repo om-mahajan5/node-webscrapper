@@ -7,12 +7,12 @@ const cliProgress = require('cli-progress');
 // const QUESTION_BASE_URL = "https://stackoverflow.com/questions/"
 
 // Uncomment the following lines to scrape the respective website
-const QUESTION_BASE_URL = "https://academia.stackexchange.com/questions/"
-// const QUESTION_BASE_URL = "https://superuser.com/questions/";
+// const QUESTION_BASE_URL = "https://academia.stackexchange.com/questions/"
+const QUESTION_BASE_URL = "https://superuser.com/questions/";
 const ROOT_URL = "?tab=Votes";
 const QUESTION_MATCH_REGEX = /\/questions\/\d+/g;
 const CSV_FILENAME = "data.csv";
-const SCRAPE_TARGET = 100; //maximum pages to scrape. Set 0 for infinite.
+const SCRAPE_TARGET = 10; //maximum pages to scrape. Set 0 for infinite.
 const MAX_THREAD_COUNT = 5;
 var requestStack = [ROOT_URL]
 var DATA = {}
@@ -64,8 +64,10 @@ function scrapeNext() {
                 threads.push(scrapeNext());
             } else if(!SCRAPE_TARGET){
                 threads.push(scrapeNext());
-            }else{
-                saveToCSV()
+            }else if(Object.values(DATA).length==SCRAPE_TARGET){
+                threads = null;
+                progressBar.stop();
+                saveToCSV();
             }
         }
     )
